@@ -1,0 +1,30 @@
+******* EVENTS *******
+___________________________________________________
+
+** MOUSE EVENTS **
+- DOMContentLoaded
+- load
+- click
+- dblclick
+- mouseover
+- mouseout
+- mouseenter
+- mouseleave
+
+___________________________________________________
+
+** KEYBOARD EVENTS **
+- keypress
+- keydown
+- keyup
+
+___________________________________________________
+** INPUT EVENTS **
+- focus
+- blur
+- copy
+- paste
+- cut
+- select
+
+___________________________________________________
