@@ -1,38 +1,34 @@
 const users = [
     {
         userId: 1,
-        user: "kerem"
+        post: "kerem"
     },
     {
         userId: 2,
-        user: "ahmet"
+        post: "ahmet"
     },
     {
         userId: 3,
-        user: "mehmet"
+        post: "mehmet"
     },
     {
         userId: 4,
-        user: "eren"
+        post: "eren"
     },
     {
         userId: 5,
-        user: "kenan"
+        post: "kenan"
     }
 ]
 
-function getUserId() {
-
+function getUserId(callback) {
     setTimeout(() => {
-        let userId = 7;
-        return userId;
+        let userId = 1
+        callback(userId)
     }, 1000);
-
 }
 
 function getPostByUserId(userId) {
-    console.log(userId);
-
     setTimeout(() => {
         users.forEach((user) => {
             if (user.userId === userId) {
@@ -42,5 +38,4 @@ function getPostByUserId(userId) {
     }, 500);
 }
 
-let userId = getUserId();
-getPostByUserId(userId)
+getUserId(getPostByUserId);
