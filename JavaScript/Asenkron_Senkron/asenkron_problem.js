@@ -38,4 +38,6 @@ function getPostByUserId(userId) {
     }, 500);
 }
 
+//callbaack ile çözümü
+
 getUserId(getPostByUserId);
