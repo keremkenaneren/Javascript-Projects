@@ -1,0 +1,30 @@
+[
+    {
+        "id" : 1,
+        "firstName" : "Kerem Kenan",
+        "lastName" : "Eren",
+        "age" : "16",
+        "e-mail" : "keremKenanEren@gmail.com"
+    },
+    {
+        "id" : 1,
+        "firstName" : "Yusuf",
+        "lastName" : "Eren",
+        "age" : "22",
+        "e-mail" : "yusufEren@gmail.com"
+    },
+    {
+        "id" : 1,
+        "firstName" : "Yunus",
+        "lastName" : "Yıldız",
+        "age" : "37",
+        "e-mail" : "yunusy@gmail.com"
+    },
+    {
+        "id" : 1,
+        "firstName" : "Mehmet",
+        "lastName" : "kalkan",
+        "age" : "13",
+        "e-mail" : "mehmet@gmail.com"
+    }
+]
