@@ -27,7 +27,10 @@ function save(e) {
     let converteName = JSON.parse(getName)
     let converteMail = JSON.parse(getMail)
 
-    let a = `{ \n "name" : "${converteName}" \n "mail" : ${converteMail} }`;
+    let a = `{ 
+         "name" : "${converteName}" \n ,
+     "mail" : "${converteMail}"
+        }`;
 
     print.textContent = a;
 
