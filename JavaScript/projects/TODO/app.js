@@ -111,6 +111,8 @@ function addTodoUI(newTodo) {
     </li>
     */
 
+
+
     const li = document.createElement("li");
     li.className = "list-group-item d-flex justify-content-between";
     li.textContent = newTodo;

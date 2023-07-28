@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Blackjack Oyunu</title>
+</head>
+
+<body>
+    <h1>Blackjack Oyunu</h1>
+    <button id="start-button">Oyuna Başla</button>
+    <button id="hit-button">Hit</button>
+    <button id="stand-button">Stand</button>
+    <p id="message"></p>
+    <div id="player-hand">
+        <h2>Oyuncu Kartları:</h2>
+    </div>
+    <div id="dealer-hand">
+        <h2>Krupiye Kartları:</h2>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const startButton = document.getElementById('start-button');
+            const hitButton = document.getElementById('hit-button');
+            const standButton = document.getElementById('stand-button');
+            const message = document.getElementById('message');
+            const playerHand = document.getElementById('player-hand');
+            const dealerHand = document.getElementById('dealer-hand');
+
+            let deck = [];
+            let playerHandValue = 0;
+            let dealerHandValue = 0;
+            let playerHandCards = [];
+            let dealerHandCards = [];
+
+            function createDeck() {
+                const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+                const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+                for (const suit of suits) {
+                    for (const value of values) {
+                        deck.push({ suit, value });
+                    }
+                }
+
+                shuffleDeck();
+            }
+
+            function shuffleDeck() {
+                for (let i = deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [deck[i], deck[j]] = [deck[j], deck[i]];
+                }
+            }
+
+            function dealCard(hand, handValue, handCards) {
+                const card = deck.pop();
+                handCards.push(card);
+                const cardValue = getCardValue(card);
+                handValue += cardValue;
+
+                const cardElement = document.createElement('p');
+                cardElement.textContent = `${card.value} of ${card.suit}`;
+                hand.appendChild(cardElement);
+
+                return handValue;
+            }
+
+            function getCardValue(card) {
+                if (['J', 'Q', 'K'].includes(card.value)) {
+                    return 10;
+                } else if (card.value === 'A') {
+                    return 11; // We'll handle the Aces later
+                } else {
+                    return parseInt(card.value);
+                }
+            }
+
+            function updateMessage(msg) {
+                message.textContent = msg;
+            }
+
+            function checkBlackjack() {
+                if (playerHandValue === 21) {
+                    updateMessage('Blackjack! Oyuncu kazandı!');
+                    endGame();
+                } else if (dealerHandValue === 21) {
+                    updateMessage('Blackjack! Krupiye kazandı!');
+                    endGame();
+                }
+            }
+
+            function checkBust(handValue) {
+                if (handValue > 21) {
+                    return true;
+                }
+                return false;
+            }
+
+            function endGame() {
+                startButton.disabled = false;
+                hitButton.disabled = true;
+                standButton.disabled = true;
+            }
+
+            function resetGame() {
+                playerHandValue = 0;
+                dealerHandValue = 0;
+                playerHandCards = [];
+                dealerHandCards = [];
+                playerHand.textContent = 'Oyuncu Kartları:';
+                dealerHand.textContent = 'Krupiye Kartları:';
+                message.textContent = '';
+            }
+
+            function playGame() {
+                startButton.disabled = true;
+                hitButton.disabled = false;
+                standButton.disabled = false;
+
+                resetGame();
+                createDeck();
+
+                playerHandValue = dealCard(playerHand, playerHandValue, playerHandCards);
+                dealerHandValue = dealCard(dealerHand, dealerHandValue, dealerHandCards);
+                playerHandValue = dealCard(playerHand, playerHandValue, playerHandCards);
+
+                checkBlackjack();
+            }
+
+            function playerHit() {
+                if (playerHandValue < 21) {
+                    playerHandValue = dealCard(playerHand, playerHandValue, playerHandCards);
+                }
+
+                if (checkBust(playerHandValue)) {
+                    updateMessage('Bust! Krupiye kazandı.');
+                    endGame();
+                }
+            }
+
+            function dealerPlay() {
+                while (dealerHandValue < 17) {
+                    dealerHandValue = dealCard(dealerHand, dealerHandValue, dealerHandCards);
+                }
+
+                if (checkBust(dealerHandValue)) {
+                    updateMessage('Bust! Oyuncu kazandı.');
+                } else {
+                    if (playerHandValue > dealerHandValue) {
+                        updateMessage('Oyuncu kazandı!');
+                    } else if (playerHandValue < dealerHandValue) {
+                        updateMessage('Krupiye kazandı!');
+                    } else {
+                        updateMessage('Berabere!');
+                    }
+                }
+
+                endGame();
+            }
+
+            startButton.addEventListener('click', playGame);
+            hitButton.addEventListener('click', playerHit);
+            standButton.addEventListener('click', dealerPlay);
+        });
+    </script>
+</body>
+
+</html>
